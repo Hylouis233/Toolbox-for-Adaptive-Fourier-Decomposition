@@ -94,11 +94,20 @@ def setDicGenMethod(self,
     HelpStr = "\nCurrent supported methods:\n1. Square (default)\n2. Circle (Fast AFD must be 'circle')"
     if type(dicGenMethod) is int:
         if dicGenMethod < 3:
-            self.dicGenMethod = dicGenMethod
+            if self.decompMethod in [2, 4] and dicGenMethod != 2:
+                self.dicGenMethod = 2
+                print("DicGenMethod must be Circle when using Fast AFD")
+                return
+            else:
+                self.dicGenMethod = dicGenMethod
         else:
             raise ValueError("Unknow dictionary generation method." + HelpStr)
     elif type(dicGenMethod) is str:
-        if dicGenMethod.lower() == 'Square'.lower():
+        if self.decompMethod in [2, 4] and dicGenMethod.lower() != 'circle'.lower():
+            self.dicGenMethod = 2
+            print("DicGenMethod must be Circle when using Fast AFD")
+            return
+        elif dicGenMethod.lower() == 'Square'.lower():
             self.dicGenMethod = 1
         elif dicGenMethod.lower() == 'Circle'.lower():
             self.dicGenMethod = 2
