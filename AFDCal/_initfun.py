@@ -93,8 +93,8 @@ def setDicGenMethod(self,
     """
     HelpStr = "\nCurrent supported methods:\n1. Square (default)\n2. Circle (Fast AFD must be 'circle')"
     if type(dicGenMethod) is int:
-        if dicGenMethod < 3:
-            if self.decompMethod in [2, 4] and dicGenMethod != 2:
+        if dicGenMethod in [1, 2]:
+            if self.decompMethod in [2, 4] and dicGenMethod == 1:
                 self.dicGenMethod = 2
                 print("DicGenMethod must be Circle when using Fast AFD")
                 return
